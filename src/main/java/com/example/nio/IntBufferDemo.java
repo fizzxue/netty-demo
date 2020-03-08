@@ -5,7 +5,7 @@ import java.nio.IntBuffer;
 /**
  * @author Fizz
  */
-public class A {
+public class IntBufferDemo {
     public static void main(String[] args) {
         IntBuffer intBuffer = IntBuffer.allocate(3);
         intBuffer.put(1);
