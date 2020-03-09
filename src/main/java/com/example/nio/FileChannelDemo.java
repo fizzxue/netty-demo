@@ -41,15 +41,26 @@ public class FileChannelDemo {
     }
 
     public static void copy() throws IOException {
+        long start = System.currentTimeMillis();
         File file = new File("C:\\Users\\Fizz\\Desktop\\file01.txt");
         FileInputStream fileInputStream = new FileInputStream(file);
-        FileChannel channel = fileInputStream.getChannel();
-        ByteBuffer byteBuffer = ByteBuffer.allocate((int) file.length());
-        channel.read(byteBuffer);
+        FileChannel inChannel = fileInputStream.getChannel();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 70);
         File file2 = new File("C:\\Users\\Fizz\\Desktop\\file02.txt");
         FileOutputStream fileOutputStream = new FileOutputStream(file2);
-        fileOutputStream.write(byteBuffer.array());
+        FileChannel outChannel = fileOutputStream.getChannel();
+        int i = -1;
+        while ((i = inChannel.read(byteBuffer)) != -1) {
+            byteBuffer.flip();
+            outChannel.write(byteBuffer);
+            byteBuffer.clear();
+        }
         fileInputStream.close();
         fileOutputStream.close();
+        if (file.length() != file2.length()) {
+            throw new RuntimeException("复制失败！");
+        }
+        long x = System.currentTimeMillis() - start;
+        System.out.println(x);
     }
 }
