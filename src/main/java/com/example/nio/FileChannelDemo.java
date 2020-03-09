@@ -13,8 +13,9 @@ import java.nio.channels.FileChannel;
 public class FileChannelDemo {
 
     public static void main(String[] args) throws IOException {
-        write();
-        read();
+//        write();
+//        read();
+        copy();
     }
 
     public static void write() throws IOException {
@@ -37,5 +38,18 @@ public class FileChannelDemo {
         channel.read(byteBuffer);
         System.out.println(new String(byteBuffer.array()));
         fileInputStream.close();
+    }
+
+    public static void copy() throws IOException {
+        File file = new File("C:\\Users\\Fizz\\Desktop\\file01.txt");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        FileChannel channel = fileInputStream.getChannel();
+        ByteBuffer byteBuffer = ByteBuffer.allocate((int) file.length());
+        channel.read(byteBuffer);
+        File file2 = new File("C:\\Users\\Fizz\\Desktop\\file02.txt");
+        FileOutputStream fileOutputStream = new FileOutputStream(file2);
+        fileOutputStream.write(byteBuffer.array());
+        fileInputStream.close();
+        fileOutputStream.close();
     }
 }
