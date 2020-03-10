@@ -1,5 +1,7 @@
 package com.example.nio;
 
+import org.springframework.util.ResourceUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,7 +17,8 @@ public class FileChannelDemo {
     public static void main(String[] args) throws IOException {
 //        write();
 //        read();
-        copy();
+//        copy();
+        copy2();
     }
 
     public static void write() throws IOException {
@@ -55,6 +58,24 @@ public class FileChannelDemo {
             outChannel.write(byteBuffer);
             byteBuffer.clear();
         }
+        fileInputStream.close();
+        fileOutputStream.close();
+        if (file.length() != file2.length()) {
+            throw new RuntimeException("复制失败！");
+        }
+        long x = System.currentTimeMillis() - start;
+        System.out.println(x);
+    }
+
+    public static void copy2() throws IOException {
+        long start = System.currentTimeMillis();
+        File file = new File(ResourceUtils.getURL("classpath:").getPath() + "file01.txt");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        FileChannel inChannel = fileInputStream.getChannel();
+        File file2 = new File("C:\\Users\\Fizz\\Desktop\\file02.txt");
+        FileOutputStream fileOutputStream = new FileOutputStream(file2);
+        FileChannel outChannel = fileOutputStream.getChannel();
+        outChannel.transferFrom(inChannel, 0, inChannel.size());
         fileInputStream.close();
         fileOutputStream.close();
         if (file.length() != file2.length()) {
