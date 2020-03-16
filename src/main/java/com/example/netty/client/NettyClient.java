@@ -2,6 +2,7 @@ package com.example.netty.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -24,6 +25,14 @@ public class NettyClient {
                         }
                     });
             ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 6668).sync();
+            channelFuture.addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    if (channelFuture.isSuccess()) {
+                        System.out.println("client connect server success");
+                    }
+                }
+            });
             channelFuture.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully();

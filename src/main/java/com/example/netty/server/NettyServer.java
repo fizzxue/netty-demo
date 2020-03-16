@@ -1,10 +1,7 @@
 package com.example.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -30,7 +27,14 @@ public class NettyServer {
                         }
                     });
             ChannelFuture channelFuture = serverBootstrap.bind(6668).sync();
-            System.out.println("netty server start successfully on 6668");
+            channelFuture.addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    if (channelFuture.isSuccess()) {
+                        System.out.println("netty server start successfully on 6668");
+                    }
+                }
+            });
             channelFuture.channel().closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
