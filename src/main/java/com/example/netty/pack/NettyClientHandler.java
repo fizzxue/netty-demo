@@ -1,0 +1,25 @@
+package com.example.netty.pack;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
+
+/**
+ * @author Fizz
+ */
+public class NettyClientHandler extends ChannelInboundHandlerAdapter {
+
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        ByteBuf byteBuf = Unpooled.copiedBuffer("路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc路年后发来的bbaldfnaldsfacc我阿德拉犯困了a我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacc我阿德拉犯困了aa打上路年后发来的bbaldfnaldsfacca打上路年后发来的bbaldfnaldsfacc", CharsetUtil.UTF_8);
+        ctx.writeAndFlush(byteBuf);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        ctx.close();
+    }
+}
