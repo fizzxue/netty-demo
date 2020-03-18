@@ -1,0 +1,21 @@
+package com.example.netty.codec.server;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
+
+import java.util.List;
+
+/**
+ * @author Fizz
+ */
+public class ServerDecoder extends ByteToMessageDecoder {
+
+    @Override
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        System.out.println("server decode");
+        if (in.readableBytes() >= 8) {
+            out.add(in.readLong());
+        }
+    }
+}
